@@ -11,6 +11,14 @@ declare global {
 
             // API Endpoints
             readonly NEXT_PUBLIC_BACKEND_URL?: string;
+
+            // Rate limit configurations
+            readonly RATE_LIMIT_DURATION?: string;
+            readonly RATE_LIMIT_ATTEMPTS?: string;
+            readonly RATE_LIMIT_COOLDOWN?: string;
+
+            // Error reporting configurations
+            readonly REPORT_ERRORS?: string;
         }
     }
 
