@@ -1,19 +1,19 @@
 import { HttpException } from 'exceptions/HttpException';
 import { reportError } from './error';
+import { AxiosError } from 'axios';
 
-type HandlerFn<R = any> = (callback: () => any) => Promise<[null, R] | [HttpException, null]>;
+type HandlerFn<R = any> = (
+    callback: () => Promise<any>
+) => Promise<[null, R] | [HttpException | AxiosError, null]>;
 
 export const exceptionHandler: HandlerFn = async (callback, report?: boolean) => {
     try {
-        return [null, callback instanceof Promise ? await callback() : callback()];
+        return [null, await callback()];
     } catch (error) {
-        if (
-            !(typeof report !== 'undefined' && report === false) &&
-            (report || process.env.REPORT_ERRORS)
-        )
-            reportError(error);
+        if (report || process.env.REPORT_ERRORS) reportError(error);
 
         // Known error types
+        if (error instanceof AxiosError) return [error, null];
         if (error instanceof HttpException) return [error, null];
         if (error instanceof Error) return [new HttpException(error.message), null];
 
