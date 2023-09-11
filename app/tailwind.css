@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+@layer base {
+    *,
+    *::before,
+    *::after {
+        outline: none !important;
+    }
+}

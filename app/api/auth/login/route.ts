@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { BadRequestException, HttpException } from 'exceptions';
 import { exceptionHandler, getClientIp, getErrorResponse, validateRequest } from 'utils';
 import { axios } from 'lib/axios.lib';
-import { AxiosError } from 'axios';
 
 type ReqBody = { username: string; password: string };
 
